@@ -18,7 +18,6 @@ import java.util.Collections;
 
 @Service
 public class GoogleTokenServiceImpl implements GoogleTokenService {
-
     Logger logger = LoggerFactory.getLogger(GoogleTokenServiceImpl.class);
 
     @Value("${clientId}")
