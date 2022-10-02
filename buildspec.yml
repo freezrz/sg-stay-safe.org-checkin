@@ -27,7 +27,7 @@ phases:
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
       - cat result.json
-      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
       - mvn clean
       - mvn install -DskipTests
       - mv target/checkin-0.0.1-SNAPSHOT.jar checkin-0.0.1-SNAPSHOT.jar
