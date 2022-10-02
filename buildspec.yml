@@ -30,7 +30,7 @@ phases:
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
       - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-      - snyk config set api=$SNYK_TOKEN
+      - snyk config set api=c7e8825f-4cec-4217-aab7-d56173d6190f
   post_build:
     commands:
       - mvn test
@@ -39,7 +39,7 @@ phases:
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
       - cat result.json
       - if [ $(jq -r '.projectStatus.status' result.json) = OK ] ; then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
-      - snyk test --org=$SNYK_ORG --json-file-output=snyk.json
+      - snyk test --org=snyk-checkin --json-file-output=snyk.json
       - cat snyk.json
       - env
       - mvn clean
