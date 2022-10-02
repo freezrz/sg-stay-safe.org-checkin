@@ -20,6 +20,7 @@ phases:
       - sudo apt-get install nodejs
       - node -v
       - n latest
+      - npm install -g npm
       - npm install -g snyk
       - wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
       - tar xzf apache-maven-3.5.4-bin.tar.gz
