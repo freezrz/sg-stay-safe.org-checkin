@@ -27,15 +27,15 @@ phases:
       - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
   post_build:
     commands:
-      - mvn clean
       - mvn test
       - mvn sonar:sonar -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.projectKey=$Project -Dsonar.organization=$Organization
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
       - cat result.json
-      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
+      - if [ $(jq -r '.projectStatus.status' result.json) = OK ] ; then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
       - snyk test -DSNYK_TOKEN=$snykAuth --json-file-output=snyk.json
       - cat snyk.json
+      - env
       - mvn clean
       - mvn install -DskipTests
       - mv target/checkin-0.0.1-SNAPSHOT.jar checkin-0.0.1-SNAPSHOT.jar
