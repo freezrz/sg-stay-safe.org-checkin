@@ -19,6 +19,9 @@ phases:
 #      - sudo apt-get remove nodejs
 #      - curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 #      - sudo apt-get install -y nodejs
+      - sudo npm cache clean -f
+      - sudo npm install -g n
+      - sudo n stable
       - node -v
 #      - n latest
       - npm install -g snyk
