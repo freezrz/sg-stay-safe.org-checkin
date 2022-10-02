@@ -14,6 +14,7 @@ phases:
       java: corretto11
   pre_build:
     commands:
+      - echo $SNYK_TOKEN
       - apt-get update
       - apt-get install -y jq
 #      - sudo apt-get remove nodejs
@@ -29,7 +30,7 @@ phases:
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
       - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-      - snyk config set api=${SNYK_TOKEN}
+      - snyk config set api=$SNYK_TOKEN
   post_build:
     commands:
       - mvn test
