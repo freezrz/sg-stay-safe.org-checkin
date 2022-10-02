@@ -6,8 +6,8 @@ env:
     Organization: prod/sonar:Organization
     Project: prod/sonar:Project
   parameter-store:
-    SNYK_TOKEN: snykAuth
-    SNYK_ORG: snykPSOrg
+    SNYK_TOKEN: SnykAuth
+    SNYK_ORG: SnykPSOrg
 phases:
   install:
     runtime-versions:
