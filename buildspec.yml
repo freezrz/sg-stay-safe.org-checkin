@@ -38,7 +38,7 @@ phases:
       - sleep 5
       - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
       - cat result.json
-      - if [ $(jq -r '.projectStatus.status' result.json) = OK ] ; then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
+      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then aws codebuild stop-build --id ${CODEBUILD_BUILD_ID} ;fi
       - snyk test --org=$SNYK_ORG --json-file-output=snyk.json
       - cat snyk.json
       - env
