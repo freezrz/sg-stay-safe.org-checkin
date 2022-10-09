@@ -31,7 +31,8 @@ public class CheckinController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public SafeResponse checkIn(@RequestBody(required = false) CheckinRequest request, HttpServletRequest httpServletRequest) {
-        logger.info("CheckinController.checkIn: {}", JSON.toJSONString(request));
+        if (request != null)
+            logger.info("CheckinController.checkIn: {}", JSON.toJSONString(request));
         String idToken = httpServletRequest.getHeader("Authorization");
         logger.info("CheckinController.header: {}", idToken);
         //validate idToken
@@ -66,7 +67,8 @@ public class CheckinController {
     @RequestMapping(value = "/authentication", method = RequestMethod.POST)
     @ResponseBody
     public SafeResponse authToken(@RequestBody(required = false) AuthRequest request, HttpServletRequest httpServletRequest) {
-        logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
+        if (request != null)
+            logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
         if (!googleTokenService.validateIdToken(request.getIdToken())) {
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_UNKNOWN, "Unknown error, pls try again");
         }

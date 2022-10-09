@@ -2,7 +2,6 @@ package com.iss.project.checkin.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
@@ -12,7 +11,6 @@ import com.amazonaws.services.lambda.model.ServiceException;
 import com.iss.project.checkin.Constants;
 import com.iss.project.checkin.model.CheckinRequest;
 import com.iss.project.checkin.model.LambdaResponse;
-import com.iss.project.checkin.model.SafeResponse;
 import com.iss.project.checkin.model.ViolationEvent;
 import com.iss.project.checkin.service.LambdaInvokeService;
 import org.slf4j.Logger;
@@ -27,7 +25,8 @@ public class LambdaInvokeServiceImpl implements LambdaInvokeService {
 
     @Override
     public LambdaResponse invokeLambdaFunction(CheckinRequest request, String function) {
-        logger.info("LambdaInvokeService.invokeLambdaFunction request={}", JSON.toJSONString(request));
+        if (request != null)
+            logger.info("LambdaInvokeService.invokeLambdaFunction request={}", JSON.toJSONString(request));
         InvokeRequest invokeRequest = new InvokeRequest()
                 .withFunctionName(function)
                 .withPayload(JSON.toJSONString(request));

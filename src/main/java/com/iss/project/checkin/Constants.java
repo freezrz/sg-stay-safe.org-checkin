@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
-
     public static final int RESPONSE_CODE_SUCCESS = 0;
     public static final int RESPONSE_CODE_UNKNOWN = 502;
     public static final int RESPONSE_CODE_EXPIRED_TOKEN = 501;

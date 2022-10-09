@@ -5,7 +5,6 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -15,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class HashUtil {
     public static final String SHA256 = "SHA-256";
-    private static final String SALT = "dshfiweuhrwekfh923bsdkjbsd";
+//    private static final String SALT = "dshfiweuhrwekfh923bsdkjbsd";
 
     private HashUtil() {
         // do nothing
@@ -63,8 +62,7 @@ public class HashUtil {
     }
 
     public static String deCrypt(String encryptStr) {
-        byte[] data = encryptStr.getBytes();
-        data = Base64.decode(encryptStr);
+        byte[] data = Base64.decode(encryptStr);
         return new String(data);
     }
 

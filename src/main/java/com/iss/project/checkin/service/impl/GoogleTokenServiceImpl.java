@@ -40,22 +40,19 @@ public class GoogleTokenServiceImpl implements GoogleTokenService {
             if (idTokenObj != null) {
                 GoogleIdToken.Payload payload = idTokenObj.getPayload();
 
-                // Print user identifier
-                String userId = payload.getSubject();
-                logger.info("User ID: " + userId);
-
                 // Get profile information from payload
                 String email = payload.getEmail();
-                boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+                boolean emailVerified = payload.getEmailVerified();
                 if (!emailVerified) {
-                    throw new Exception("Email validation failed");
+                    logger.error("Email validation failed");
+                    return false;
                 }
-                String name = (String) payload.get("name");
-                String pictureUrl = (String) payload.get("picture");
-                String locale = (String) payload.get("locale");
-                String familyName = (String) payload.get("family_name");
-                String givenName = (String) payload.get("given_name");
-                Long exp = Long.parseLong(payload.get("exp").toString());
+//                String name = (String) payload.get("name");
+//                String pictureUrl = (String) payload.get("picture");
+//                String locale = (String) payload.get("locale");
+//                String familyName = (String) payload.get("family_name");
+//                String givenName = (String) payload.get("given_name");
+//                Long exp = Long.parseLong(payload.get("exp").toString());
 
                 // Use or store profile information
                 String anonymuosId = HashUtil.hashSha256(email);
@@ -73,28 +70,29 @@ public class GoogleTokenServiceImpl implements GoogleTokenService {
     }
 
     @Override
-    public String validateIdTokenReturnId(String idToken) throws Exception{
-        //todo invoke google service to validate id token
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                // Specify the CLIENT_ID of the app that accesses the backend:
-                .setAudience(Collections.singletonList(env.getProperty("clientId")))
-                // Or, if multiple clients access the backend:
-                //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                .build();
+    public String validateIdTokenReturnId(String idToken) {
         try {
+            // invoke google service to validate id token
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                    // Specify the CLIENT_ID of the app that accesses the backend:
+                    .setAudience(Collections.singletonList(env.getProperty("clientId")))
+                    // Or, if multiple clients access the backend:
+                    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+                    .build();
             GoogleIdToken idTokenObj = verifier.verify(idToken);
             if (idTokenObj != null) {
                 GoogleIdToken.Payload payload = idTokenObj.getPayload();
 
                 // Print user identifier
-                String userId = payload.getSubject();
-                logger.info("User ID: " + userId);
+//                String userId = payload.getSubject();
+//                logger.info("User ID: " + userId);
 
                 // Get profile information from payload
                 String email = payload.getEmail();
-                boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+                boolean emailVerified = payload.getEmailVerified();
                 if (!emailVerified) {
-                    throw new Exception("Email validation failed");
+                    logger.error("Email validation failed");
+                    return null;
                 }
 
                 // Use or store profile information
@@ -106,7 +104,7 @@ public class GoogleTokenServiceImpl implements GoogleTokenService {
             }
         } catch (Exception e) {
             logger.error("validateIdToken exception", e);
-            throw e;
+            return null;
         }
     }
 }
