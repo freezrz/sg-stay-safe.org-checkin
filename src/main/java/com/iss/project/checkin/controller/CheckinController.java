@@ -57,7 +57,7 @@ public class CheckinController {
         for (String function : functions){
             LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(request, function);
             if (lambdaResponse.getCode() != 0) {
-                return SafeResponse.responseFail(lambdaResponse.getCode(), lambdaResponse.getMsg());
+                return SafeResponse.responseFail(lambdaResponse.getCode(), Constants.getMsg(lambdaResponse.getCode(), lambdaResponse.getMsg()));
             }
         }
 

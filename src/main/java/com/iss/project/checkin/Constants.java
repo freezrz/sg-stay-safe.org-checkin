@@ -23,5 +23,35 @@ public class Constants {
     public static final int LAMBDA_RESPONSE_CODE_USER_BANNED = 451001;
     public static final int LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED = 451004;
 
+    public static final int LAMBDA_RESPONSE_CODE_USER_BANNED_CACHE = 451002;
+
+    public static final int LAMBDA_RESPONSE_CODE_USER_MAX_CHECKIN_CACHE = 451003;
+
+    public static final int LAMBDA_RESPONSE_CODE_USER_24HRS_CHECKIN = 451005;
+
+    public static final int LAMBDA_RESPONSE_CODE_SITE_BANNED_CACHE = 452002;
+
     public static Map<String, String> tokenMap = new HashMap<>();
+
+    private static Map<Integer, String> msgMap = new HashMap<Integer, String>() {
+        {
+            put(LAMBDA_RESPONSE_CODE_SITE_BANNED, "This site has been banned.");
+            put(LAMBDA_RESPONSE_CODE_USER_BANNED_CACHE, "You have been banned, pls contact relevant team.");
+            put(LAMBDA_RESPONSE_CODE_SITE_BANNED_CACHE, "This site has been banned.");
+            put(LAMBDA_RESPONSE_CODE_USER_BANNED, "You have been banned, pls contact relevant team.");
+            put(LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED, "");
+            put(LAMBDA_RESPONSE_CODE_USER_24HRS_CHECKIN, "This site has reached the max number of visitor today.");
+        }
+    };
+
+    public static String getMsg(Integer msgCode, String msg) {
+        String msgOfMap = msgMap.get(msgCode);
+        if (msgOfMap == null) {
+            return "Unable to checkin, pls stay home.";
+        }
+        if (msgOfMap.isEmpty()) {
+            return msg;
+        }
+        return msgOfMap;
+    }
 }
