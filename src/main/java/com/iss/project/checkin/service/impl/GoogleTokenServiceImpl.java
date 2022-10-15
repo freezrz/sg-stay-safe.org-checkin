@@ -55,8 +55,8 @@ public class GoogleTokenServiceImpl implements GoogleTokenService {
 //                Long exp = Long.parseLong(payload.get("exp").toString());
 
                 // Use or store profile information
-                String anonymuosId = HashUtil.hashSha256(email);
-                String idTokenEncy = HashUtil.hashSha256(idToken);
+                String anonymuosId = HashUtil.enCrypt(email);
+                String idTokenEncy = HashUtil.enCrypt(idToken);
                 Constants.tokenMap.put(idTokenEncy, anonymuosId);
             } else {
                 logger.error("Invalid ID token.");
@@ -96,7 +96,7 @@ public class GoogleTokenServiceImpl implements GoogleTokenService {
                 }
 
                 // Use or store profile information
-                String anonymuosId = HashUtil.hashSha256(email);
+                String anonymuosId = HashUtil.enCrypt(email);
                 return anonymuosId;
             } else {
                 logger.error("Invalid ID token.");

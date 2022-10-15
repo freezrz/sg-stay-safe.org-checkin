@@ -61,6 +61,10 @@ public class HashUtil {
         return hash(SHA256, is);
     }
 
+    public static String enCrypt(String str) {
+        return Base64.encode(str.getBytes());
+    }
+
     public static String deCrypt(String encryptStr) {
         byte[] data = Base64.decode(encryptStr);
         return new String(data);

@@ -70,7 +70,7 @@ public class CheckinController {
         if (request != null)
             logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
         if (!googleTokenService.validateIdToken(request.getIdToken())) {
-            return SafeResponse.responseFail(Constants.RESPONSE_CODE_UNKNOWN, "Unknown error, pls try again");
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_EXPIRED_TOKEN, "RESPONSE_CODE_EXPIRED");
         }
         return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_AUTH_SUCCESS);
     }
