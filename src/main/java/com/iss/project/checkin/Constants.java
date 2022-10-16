@@ -8,7 +8,10 @@ import java.util.Map;
 public class Constants {
     public static final int RESPONSE_CODE_SUCCESS = 0;
     public static final int RESPONSE_CODE_UNKNOWN = 502;
-    public static final int RESPONSE_CODE_EXPIRED_TOKEN = 501;
+
+    public static final int RESPONSE_CODE_TOKEN_EXPIRED = 501;
+
+    public static final int RESPONSE_CODE_TOKEN_EMPTY = 403;
 
     public static final String RESPONSE_MSG_CHECKIN_SUCCESS = "check in successfully";
     public static final String RESPONSE_MSG_AUTH_SUCCESS = "Validate token successfully";

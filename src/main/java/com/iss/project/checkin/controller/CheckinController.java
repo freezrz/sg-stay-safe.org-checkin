@@ -37,10 +37,13 @@ public class CheckinController {
         logger.info("CheckinController.header: {}", idToken);
         //validate idToken
         idToken = idToken.replace("Bearer ", "");
+        if (StringUtils.isNullOrEmpty(idToken)) {
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EMPTY, "Forbidden request, need to provide valid token");
+        }
         try {
             String anonymuosId = googleTokenService.validateIdTokenReturnId(idToken);
             if (StringUtils.isNullOrEmpty(anonymuosId)) {
-                return SafeResponse.responseFail(Constants.RESPONSE_CODE_EXPIRED_TOKEN, "");
+                return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "Invalid token");
             }
             logger.info("checkIn validate idToken success");
             request.setAnonymous_id(anonymuosId);
@@ -70,7 +73,7 @@ public class CheckinController {
         if (request != null)
             logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
         if (!googleTokenService.validateIdToken(request.getIdToken())) {
-            return SafeResponse.responseFail(Constants.RESPONSE_CODE_EXPIRED_TOKEN, "RESPONSE_CODE_EXPIRED");
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "RESPONSE_CODE_EXPIRED");
         }
         return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_AUTH_SUCCESS);
     }
