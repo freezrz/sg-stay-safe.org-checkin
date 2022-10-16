@@ -40,7 +40,7 @@ public class Constants {
             ,LAMBDA_RESPONSE_CODE_USER_BANNED_CACHE, "You have been banned, pls contact relevant team."
             ,LAMBDA_RESPONSE_CODE_SITE_BANNED_CACHE, "This site has been banned."
             ,LAMBDA_RESPONSE_CODE_USER_BANNED, "You have been banned, pls contact relevant team."
-            ,LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED, ""
+            ,LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED, "You have reached the max checkin limits, pls stay home."
             ,LAMBDA_RESPONSE_CODE_USER_24HRS_CHECKIN, "This site has reached the max number of visitor today.");
 
     public static String getMsg(Integer msgCode, String msg) {
