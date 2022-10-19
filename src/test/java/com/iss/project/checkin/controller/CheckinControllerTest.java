@@ -110,7 +110,7 @@ class CheckinControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(RESPONSE_CODE_TOKEN_EMPTY))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("Forbidden request, need to provide valid"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.msg").value("Forbidden request, need to provide valid token"))
                 .andDo(print());
     }
 
