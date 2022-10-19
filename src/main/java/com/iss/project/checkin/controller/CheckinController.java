@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class CheckinController {
@@ -33,7 +34,7 @@ public class CheckinController {
     public SafeResponse checkIn(@RequestBody(required = false) CheckinRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.checkIn: {}", JSON.toJSONString(request));
-        if (StringUtils.isNullOrEmpty(request.getSite_id()))
+        if (Objects.isNull(request) || StringUtils.isNullOrEmpty(request.getSite_id()))
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_INVALID_PARAM, "Miss required param");
         String idToken = httpServletRequest.getHeader("Authorization");
         if (StringUtils.isNullOrEmpty(idToken)) {
@@ -74,7 +75,7 @@ public class CheckinController {
     public SafeResponse authToken(@RequestBody(required = false) AuthRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
-        if (StringUtils.isNullOrEmpty(request.getAnonymousId()))
+        if (Objects.isNull(request) || StringUtils.isNullOrEmpty(request.getAnonymousId()))
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_INVALID_PARAM, "Miss required param");
         String idToken = httpServletRequest.getHeader("Authorization");
         if (StringUtils.isNullOrEmpty(idToken)) {
