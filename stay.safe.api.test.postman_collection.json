@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "6ef3046d-cfca-4b04-a25c-ad1cd447b822",
+		"name": "stay.safe.api.test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4059447"
+	},
+	"item": [
+		{
+			"name": "Checkin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"pm.test(\"Response Code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(501);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid token\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjIwOWMwNTdkM2JkZDhjMDhmMmQ1NzM5Nzg4NjMyNjczZjdjNjI0MGYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxNjUxNDkzNjM3MTEtNDdtZDlmc3NrdGxhM2FycXR1ZzNucHBxNzA1a2FxMmIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxNjUxNDkzNjM3MTEtbWdzZ3NwazhpaXV2ZXU2dmdhajg2MHZwbmk0a29idTQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDIxMzE1ODI3MDQ1MTQyNzMzNzQiLCJlbWFpbCI6InJvbmd6ZXpoYW5nMzNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJyb25nemUgemhhbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUxtNXd1MDhQY2oyQmtjR2VQcllvc3ppdHd4Um1hN3FjWmg5eGtSc3pmcm49czk2LWMiLCJnaXZlbl9uYW1lIjoicm9uZ3plIiwiZmFtaWx5X25hbWUiOiJ6aGFuZyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjYzOTQ2NTE0LCJleHAiOjE2NjM5NTAxMTR9.lbtMjzRgplQWwBGsFvOaYXGw566YZV16MM5fEGA39vOj6qMLuJmIWk9WdIErput8qOMuuFn16dKGkDspQTAUZjdOHNP1BiW-2fqzO9ZZCYBy-lC01ZPGWpz2Ed5hdKvL0Z1SzkvrUiZsJL50u8niiy5likPE13AU_I2M1VgjRdKgNRxQOqm4tWmvw-VLjXxODazT0k8v7uvACxr2Hzdg8Xz7wFPRedSkWUEBM-JP9t_zZy1xPKNU3roTlB5O1IUmMtx8knYoNq4n1Jb8CGxqp6m_UM2YIMJLbRM2PzjopGvfUE_PA811THLNSPUuCYtfs5MH1pyJcZ6778qmnRXNJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"anonymous_id\": \"myidisfabulous\",\r\n    \"site_id\": \"doesntcaremycharm\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://checkin.sg-stay-safe.com",
+					"protocol": "https",
+					"host": [
+						"checkin",
+						"sg-stay-safe",
+						"com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "idtoken auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {",
+							"    console.log(response.json());",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"pm.test(\"Response Code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(501);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"RESPONSE_CODE_EXPIRED\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjIwOWMwNTdkM2JkZDhjMDhmMmQ1NzM5Nzg4NjMyNjczZjdjNjI0MGYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxNjUxNDkzNjM3MTEtNDdtZDlmc3NrdGxhM2FycXR1ZzNucHBxNzA1a2FxMmIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxNjUxNDkzNjM3MTEtbWdzZ3NwazhpaXV2ZXU2dmdhajg2MHZwbmk0a29idTQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDIxMzE1ODI3MDQ1MTQyNzMzNzQiLCJlbWFpbCI6InJvbmd6ZXpoYW5nMzNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJyb25nemUgemhhbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUxtNXd1MDhQY2oyQmtjR2VQcllvc3ppdHd4Um1hN3FjWmg5eGtSc3pmcm49czk2LWMiLCJnaXZlbl9uYW1lIjoicm9uZ3plIiwiZmFtaWx5X25hbWUiOiJ6aGFuZyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjYzOTQ2NTE0LCJleHAiOjE2NjM5NTAxMTR9.lbtMjzRgplQWwBGsFvOaYXGw566YZV16MM5fEGA39vOj6qMLuJmIWk9WdIErput8qOMuuFn16dKGkDspQTAUZjdOHNP1BiW-2fqzO9ZZCYBy-lC01ZPGWpz2Ed5hdKvL0Z1SzkvrUiZsJL50u8niiy5likPE13AU_I2M1VgjRdKgNRxQOqm4tWmvw-VLjXxODazT0k8v7uvACxr2Hzdg8Xz7wFPRedSkWUEBM-JP9t_zZy1xPKNU3roTlB5O1IUmMtx8knYoNq4n1Jb8CGxqp6m_UM2YIMJLbRM2PzjopGvfUE_PA811THLNSPUuCYtfs5MH1pyJcZ6778qmnRXNJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3MjdiNmI0OTQwMmI5Y2Y5NWJlNGU4ZmQzOGFhN2U3YzExNjQ0YjEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxNjUxNDkzNjM3MTEtNDdtZDlmc3NrdGxhM2FycXR1ZzNucHBxNzA1a2FxMmIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxNjUxNDkzNjM3MTEtbWdzZ3NwazhpaXV2ZXU2dmdhajg2MHZwbmk0a29idTQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDIxMzE1ODI3MDQ1MTQyNzMzNzQiLCJlbWFpbCI6InJvbmd6ZXpoYW5nMzNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJyb25nemUgemhhbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUl0YnZtbERZTzM1Ti16bTNVclhlVkhiaGROalE5MlYzT1R3X3E1YVRzdW89czk2LWMiLCJnaXZlbl9uYW1lIjoicm9uZ3plIiwiZmFtaWx5X25hbWUiOiJ6aGFuZyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjYxMDczMDgwLCJleHAiOjE2NjEwNzY2ODB9.cOyuXXjpWiVi6MMO3kkNQt_NIXlc9cG_uEEMD_dmofxMmrl9szbyZmhonIgHp05dEosVzjhKr8Dc9b9PwJv_5x84Kn4pAcnEqi3WjhbnLBx0W4QFErKZBxJ06FscKJuBfQD9EJQX-lfhny1cV5eKMpO5AWVO8XpWtdffBxtiCo3LuNmFeTq1zKbt1WhePQTjtGif38k0e9xCCtDMukQ7A4oVGqxYsEGbmJvYiOgnFRMxgpgsbjPqCLZ6a8xNgBrNQlVvHZRsON-PlDLTVZRbRFy1Jm5a7wDj4I_478RwZKhatyy7fydnh8heDAgm_kgo7K2r9Q1Wz2UUJ-2TpGAaWg\",\n    \"anonymousId\": \"lskhfowehfweioihlskdhf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://checkin.sg-stay-safe.com/authentication",
+					"protocol": "https",
+					"host": [
+						"checkin",
+						"sg-stay-safe",
+						"com"
+					],
+					"path": [
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

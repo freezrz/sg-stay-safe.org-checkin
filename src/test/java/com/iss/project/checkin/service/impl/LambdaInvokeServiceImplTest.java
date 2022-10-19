@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-import static com.iss.project.checkin.Constants.RESPONSE_CODE_SUCCESS;
+import static com.iss.project.checkin.Constants.*;
 
 @SpringBootTest
 class LambdaInvokeServiceImplTest {
@@ -22,5 +22,19 @@ class LambdaInvokeServiceImplTest {
         CheckinRequest checkinRequest = new CheckinRequest("testanonymous", "testsiteid");
         LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_SANITISE_CHECKIN);
         Assert.isTrue(lambdaResponse.getCode() == RESPONSE_CODE_SUCCESS, "Sanitise check pass");
+    }
+
+    @Test
+    void invokeLambdaFunctionSanitiseCheckEmptyId() {
+        CheckinRequest checkinRequest = new CheckinRequest("", "testsiteid");
+        LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_SANITISE_CHECKIN);
+        Assert.isTrue(lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_SANITISE, "Sanitise check pass");
+    }
+
+    @Test
+    void invokeLambdaFunctionSanitiseCheckUserBaned() {
+        CheckinRequest checkinRequest = new CheckinRequest("testanonymousbaned", "testsiteid");
+        LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_SANITISE_CHECKIN);
+        Assert.isTrue(lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_USER_BANNED, "Sanitise check pass");
     }
 }
