@@ -36,6 +36,6 @@ class LambdaInvokeServiceImplTest {
         CheckinRequest checkinRequest = new CheckinRequest("anNyZGd4aDExMDdAZ21haWwuY29t", "testsiteid");
         LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_VERIFY_RULES_CHECKIN);
         System.out.println("lambdaResponse code: " + lambdaResponse.getCode());
-        Assert.isTrue(lambdaResponse.getCode() == RESPONSE_CODE_SUCCESS || lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_USER_BANNED_CACHE, "Sanitise check user banded");
+        Assert.isTrue(lambdaResponse.getCode() == RESPONSE_CODE_SUCCESS || lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_USER_BANNED, "Sanitise check user banded");
     }
 }
