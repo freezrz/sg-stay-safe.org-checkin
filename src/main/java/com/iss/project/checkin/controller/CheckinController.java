@@ -33,17 +33,19 @@ public class CheckinController {
     public SafeResponse checkIn(@RequestBody(required = false) CheckinRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.checkIn: {}", JSON.toJSONString(request));
+        if (StringUtils.isNullOrEmpty(request.getSite_id()))
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_INVALID_PARAM, "Miss required param");
         String idToken = httpServletRequest.getHeader("Authorization");
-        logger.info("CheckinController.header: {}", idToken);
-        //validate idToken
-        idToken = idToken.replace("Bearer ", "");
         if (StringUtils.isNullOrEmpty(idToken)) {
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EMPTY, "Forbidden request, need to provide valid token");
         }
+        logger.info("CheckinController.header: {}", idToken);
+        //validate idToken
+        idToken = idToken.replace("Bearer ", "");
         try {
             String anonymuosId = googleTokenService.validateIdTokenReturnId(idToken);
             if (StringUtils.isNullOrEmpty(anonymuosId)) {
-                return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "Invalid token");
+                return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "RESPONSE_CODE_EXPIRED");
             }
             logger.info("checkIn validate idToken success");
             request.setAnonymous_id(anonymuosId);
@@ -72,7 +74,15 @@ public class CheckinController {
     public SafeResponse authToken(@RequestBody(required = false) AuthRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
-        if (!googleTokenService.validateIdToken(request.getIdToken())) {
+        if (StringUtils.isNullOrEmpty(request.getAnonymousId()))
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_INVALID_PARAM, "Miss required param");
+        String idToken = httpServletRequest.getHeader("Authorization");
+        if (StringUtils.isNullOrEmpty(idToken)) {
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EMPTY, "Forbidden request, need to provide valid token");
+        }
+        //validate idToken
+        idToken = idToken.replace("Bearer ", "");
+        if (!googleTokenService.validateIdToken(idToken)) {
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "RESPONSE_CODE_EXPIRED");
         }
         return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_AUTH_SUCCESS);
