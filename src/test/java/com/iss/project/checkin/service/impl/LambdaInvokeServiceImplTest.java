@@ -33,8 +33,8 @@ class LambdaInvokeServiceImplTest {
 
     @Test
     void invokeLambdaFunctionSanitiseCheckUserBaned() {
-        CheckinRequest checkinRequest = new CheckinRequest("testanonymousbaned", "testsiteid");
-        LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_SANITISE_CHECKIN);
-        Assert.isTrue(lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_USER_BANNED, "Sanitise check pass");
+        CheckinRequest checkinRequest = new CheckinRequest("anNyZGd4aDExMDdAZ21haWwuY29t", "testsiteid");
+        LambdaResponse lambdaResponse = lambdaInvokeService.invokeLambdaFunction(checkinRequest, Constants.LAMBDA_FUNCTION_VERIFY_RULES_CHECKIN);
+        Assert.isTrue(lambdaResponse.getCode() == LAMBDA_RESPONSE_CODE_USER_BANNED, "Sanitise check user banded");
     }
 }
