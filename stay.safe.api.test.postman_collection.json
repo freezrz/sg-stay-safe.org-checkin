@@ -27,7 +27,7 @@
 							"    pm.expect(jsonData.code).to.eql(501);",
 							"});",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Invalid token\");",
+							"    pm.expect(pm.response.text()).to.include(\"RESPONSE_CODE_EXPIRED\");",
 							"});",
 							""
 						],
