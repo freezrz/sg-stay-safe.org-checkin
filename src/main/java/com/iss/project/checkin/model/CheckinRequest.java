@@ -4,6 +4,14 @@ public class CheckinRequest {
     private String anonymous_id;
     private String site_id;
 
+    public CheckinRequest() {
+    }
+
+    public CheckinRequest(String anonymous_id, String site_id) {
+        this.anonymous_id = anonymous_id;
+        this.site_id = site_id;
+    }
+
     public String getAnonymous_id() {
         return anonymous_id;
     }
