@@ -68,7 +68,11 @@
 			<artifactId>google-http-client</artifactId>
 			<version>1.42.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-secretsmanager</artifactId>
+			<version>1.11.671</version>
+		</dependency>
 	</dependencies>
 
 	<build>
