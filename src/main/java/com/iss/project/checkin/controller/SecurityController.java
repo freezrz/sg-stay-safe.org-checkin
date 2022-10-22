@@ -7,7 +7,6 @@ import com.iss.project.checkin.Constants;
 import com.iss.project.checkin.model.*;
 import com.iss.project.checkin.service.SecurityService;
 import com.iss.project.checkin.utils.HashUtil;
-import org.omg.CORBA.TRANSACTION_MODE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

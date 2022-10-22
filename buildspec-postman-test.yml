@@ -13,6 +13,6 @@ phases:
     commands:
       - newman run stay.safe.api.test.postman_collection.json -r html,cli --reporter-html-export postman-api-test.html
       - ls -l
-artifacts:
-  files:
-    - postman-api-test.html
+#artifacts:
+#  files:
+#    - postman-api-test.html
