@@ -9,6 +9,7 @@ import com.iss.project.checkin.model.LambdaResponse;
 import com.iss.project.checkin.model.SafeResponse;
 import com.iss.project.checkin.service.GoogleTokenService;
 import com.iss.project.checkin.service.LambdaInvokeService;
+import com.iss.project.checkin.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class CheckinController {
 
     @Autowired
     GoogleTokenService googleTokenService;
+
+    @Autowired
+    SecurityService securityService;
 
     Logger logger = LoggerFactory.getLogger(CheckinController.class);
 
@@ -49,6 +53,8 @@ public class CheckinController {
                 return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "RESPONSE_CODE_EXPIRED");
             }
             logger.info("checkIn validate idToken success");
+            String siteId = securityService.decryptInfoWithAES(request.getSite_id());
+            request.setSite_id(siteId);
             request.setAnonymous_id(anonymuosId);
         } catch (Exception e) {
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_UNKNOWN, "Unknown error, pls try again");

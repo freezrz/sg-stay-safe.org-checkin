@@ -27,6 +27,10 @@ public class SafeResponse {
 		return new SafeResponse(Constants.RESPONSE_CODE_SUCCESS, msg, null);
 	}
 
+	public static SafeResponse responseSuccess(String msg, Object obj){
+		return new SafeResponse(Constants.RESPONSE_CODE_SUCCESS, msg, obj);
+	}
+
 	public static SafeResponse responseFail(int code, String msg){
 		return new SafeResponse(code, msg, null);
 	}
