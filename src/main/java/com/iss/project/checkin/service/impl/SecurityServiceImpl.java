@@ -25,7 +25,6 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public String encryptInfoWithAES(String encryptStr) throws Exception {
         String pass = getSecret(SECURITY_MANAGER_AES_KEY);
-//        String pass = "nq65xX2FBqtYgJrA";
         SecretKeySpec keySpec = new SecretKeySpec(pass.getBytes(StandardCharsets.UTF_8), "AES");
         Cipher encryptCipher = Cipher.getInstance("AES/CFB/NoPadding");
         encryptCipher.init(Cipher.ENCRYPT_MODE, keySpec, new IvParameterSpec(new byte[encryptCipher.getBlockSize()]));
@@ -36,7 +35,6 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public String decryptInfoWithAES(String ciphertext) throws Exception {
         String pass = getSecret(SECURITY_MANAGER_AES_KEY);
-//        String pass = "nq65xX2FBqtYgJrA";
         SecretKeySpec keySpec = new SecretKeySpec(pass.getBytes(StandardCharsets.UTF_8), "AES");
         Cipher decryptCipher = Cipher.getInstance("AES/CFB/NoPadding");
         decryptCipher.init(Cipher.DECRYPT_MODE, keySpec, new IvParameterSpec(new byte[decryptCipher.getBlockSize()]));
@@ -94,9 +92,8 @@ public class SecurityServiceImpl implements SecurityService {
             secret = getSecretValueResult.getSecretString();
         }
         else {
-            decodedBinarySecret = new String(Base64.getDecoder().decode(getSecretValueResult.getSecretBinary()).array());
+            return null;
         }
-        System.out.println("getSecret: " + secret);
         JSONObject secretjson = JSON.parseObject(secret);
         secret = secretjson.getString(key);
         return secret;

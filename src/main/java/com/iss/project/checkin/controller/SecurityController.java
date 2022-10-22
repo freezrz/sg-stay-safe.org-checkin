@@ -35,19 +35,14 @@ public class SecurityController {
             return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EMPTY, "Forbidden request, need to provide valid api key");
         }
         // todo recover
-//        if(!apiKey.equals(securityService.getSecret(Constants.SECURITY_MANAGER_API_KEY))) {
-//            return SafeResponse.responseFail(Constants.RESPONSE_CODE_SECURITY_INVALID_API_KEY, "Forbidden request, need to provide valid api key");
-//        }
+        if(!apiKey.equals(securityService.getSecret(Constants.SECURITY_MANAGER_API_KEY))) {
+            return SafeResponse.responseFail(Constants.RESPONSE_CODE_SECURITY_INVALID_API_KEY, "Forbidden request, need to provide valid api key");
+        }
         // todo encrypt QR info
         try {
-            String clearText = HashUtil.enCrypt(JSON.toJSONString(request));
-            logger.info("encryptQRInfo clearText: " + JSON.toJSONString(request));
             String ciphertext = securityService.encryptInfoWithAES(JSON.toJSONString(request));
-            logger.info("encryptQRInfo ciphertext: " + ciphertext);
-            String decryptStr = securityService.decryptInfoWithAES(ciphertext);
-            logger.info("encryptQRInfo decryptStr: " + decryptStr);
+            logger.info("encryptQRInfo ciphertext: {}", ciphertext);
 
-            logger.info((String) JSONObject.parseObject(decryptStr).get("issueTime"));
             return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_AUTH_SUCCESS, ciphertext);
 
         } catch (Exception e) {
