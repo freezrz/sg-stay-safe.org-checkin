@@ -30,7 +30,7 @@ public class Constants {
 
     public static final Integer LAMBDA_RESPONSE_CODE_SANITISE = 41001;
 
-    public static final Integer LAMBDA_RESPONSE_CODE_CodeAntiFraud = 44001;
+    public static final Integer LAMBDA_RESPONSE_CODE_ANTIFRUAD = 44001;
     public static final Integer LAMBDA_RESPONSE_CODE_SITE_BANNED = 452001;
     public static final Integer LAMBDA_RESPONSE_CODE_USER_BANNED = 451001;
     public static final Integer LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED = 451004;
@@ -66,7 +66,7 @@ public class Constants {
             ,LAMBDA_RESPONSE_CODE_USER_BANNED, "You have been banned, pls contact relevant team."
             ,LAMBDA_RESPONSE_CODE_USER_EXCEED_MAX_BANNED, "You have reached the max checkin limits, pls stay home."
             ,LAMBDA_RESPONSE_CODE_USER_24HRS_CHECKIN, "This site has reached the max number of visitor today."
-            ,LAMBDA_RESPONSE_CODE_CodeAntiFraud, "");
+            ,LAMBDA_RESPONSE_CODE_ANTIFRUAD, "");
 
     public static String getMsg(Integer msgCode, String msg) {
         String msgOfMap = msgMap.get(msgCode);
