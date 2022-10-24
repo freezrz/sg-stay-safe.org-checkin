@@ -24,7 +24,7 @@ public class SecurityController {
 
     @RequestMapping(value = "/getQR", method = RequestMethod.POST)
     @ResponseBody
-    public SafeResponse encryptQRInfo(@RequestBody(required = false) SecurityRequest request, HttpServletRequest httpServletRequest) {
+    public SafeResponse encryptQRInfo(@RequestBody(required = true) SecurityRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("SecurityController.encryptQRInfo: {}", JSON.toJSONString(request));
         if (!validateRequest(request))
