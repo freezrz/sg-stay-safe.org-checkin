@@ -1,6 +1,7 @@
 package com.iss.project.checkin.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.amazonaws.util.StringUtils;
 import com.iss.project.checkin.Constants;
 import com.iss.project.checkin.model.AuthRequest;
@@ -13,6 +14,9 @@ import com.iss.project.checkin.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +39,7 @@ public class CheckinController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public SafeResponse checkIn(@RequestBody(required = false) CheckinRequest request, HttpServletRequest httpServletRequest) {
+    public SafeResponse checkIn(@RequestBody(required = true) CheckinRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.checkIn: {}", JSON.toJSONString(request));
         if (Objects.isNull(request) || StringUtils.isNullOrEmpty(request.getSite_id()))
@@ -53,7 +57,8 @@ public class CheckinController {
                 return SafeResponse.responseFail(Constants.RESPONSE_CODE_TOKEN_EXPIRED, "RESPONSE_CODE_EXPIRED");
             }
             logger.info("checkIn validate idToken success");
-            String siteId = securityService.decryptInfoWithAES(request.getSite_id());
+            String qrJson = securityService.decryptInfoWithAES(request.getSite_id());
+            String siteId = JSONObject.parseObject(qrJson).getString("siteId");
             request.setSite_id(siteId);
             request.setAnonymous_id(anonymuosId);
         } catch (Exception e) {
@@ -78,7 +83,7 @@ public class CheckinController {
 
     @RequestMapping(value = "/authentication", method = RequestMethod.POST)
     @ResponseBody
-    public SafeResponse authToken(@RequestBody(required = false) AuthRequest request, HttpServletRequest httpServletRequest) {
+    public SafeResponse authToken(@RequestBody(required = true) AuthRequest request, HttpServletRequest httpServletRequest) {
         if (request != null)
             logger.info("CheckinController.authToken: {}", JSON.toJSONString(request));
         if (Objects.isNull(request) || StringUtils.isNullOrEmpty(request.getAnonymousId()))
