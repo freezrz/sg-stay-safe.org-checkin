@@ -17,6 +17,7 @@ public class Constants {
 
     public static final int RESPONSE_CODE_INVALID_PARAM = 503;
 
+    public static final String RESPONSE_MSG_SERVER_STATUS = "Server is serving";
     public static final String RESPONSE_MSG_CHECKIN_SUCCESS = "check in successfully";
     public static final String RESPONSE_MSG_AUTH_SUCCESS = "Validate token successfully";
 

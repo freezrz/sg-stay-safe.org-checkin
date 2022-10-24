@@ -99,4 +99,10 @@ public class CheckinController {
         }
         return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_AUTH_SUCCESS);
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public SafeResponse statusCheck(HttpServletRequest httpServletRequest) {
+        return SafeResponse.responseSuccess(Constants.RESPONSE_MSG_SERVER_STATUS);
+    }
 }
