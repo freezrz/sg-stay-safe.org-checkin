@@ -33,6 +33,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=$AccessKey
       - export AWS_SECRET_KEY=$AccessSecret
       - export AWS_CREDENTIAL_PROFILES_FILE=".aws/credentials"
+      - env
   post_build:
     commands:
       - mvn test
