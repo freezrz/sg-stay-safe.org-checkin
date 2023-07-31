@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-lambda</artifactId>
-			<version>1.11.648</version>
+			<version>1.12.519</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.api-client</groupId>
